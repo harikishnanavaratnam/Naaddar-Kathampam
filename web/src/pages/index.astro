@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+import { fmtDate } from '../lib/format';
+const c = await getContent();
+const h = c.home;
+---
+<Base title="Naaddaar Kathampam">
+  <div class="hero">
+    <div class="hero-frame">
+      <img class="hero-logo" src="/logo.webp" alt="Naaddaar Kathampam" />
+      <div class="kicker"><span class="lx-ta ta">{h.kicker.ta}</span><span class="lx-en">{h.kicker.en}</span></div>
+      <h1><span class="lx-ta ta">{h.heroTitle.ta}</span><span class="lx-en">{h.heroTitle.en}</span></h1>
+      <p class="sub"><span class="lx-ta ta">{h.heroSub.ta}</span><span class="lx-en">{h.heroSub.en}</span></p>
+      <div class="cta-row">
+        <a class="btn solid" href="/event"><span class="lx-ta">நிகழ்வு விபரங்கள்</span><span class="lx-en">Event details</span></a>
+        <a class="btn ghost" href="/about"><span class="lx-ta">எங்களைப் பற்றி</span><span class="lx-en">About us</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div>
+      <div class="kicker" style="color:var(--gold-bright)"><span class="lx-ta">வரவிருக்கும் நிகழ்வு</span><span class="lx-en">Upcoming event</span></div>
+      <h3 style="font-family:'Catamaran';font-size:1.5rem;margin:8px 0 4px;color:#fff"><span class="lx-ta ta">நாட்டார் கதம்பம் 2026</span><span class="lx-en">Naaddaar Kathampam 2026</span></h3>
+      <p style="margin:0;color:#f2e2c2;font-size:.9rem"><span class="lx-ta ta">தேதி மற்றும் இடம் நிர்வாகத்தால் விரைவில் புதுப்பிக்கப்படும்.</span><span class="lx-en">Date &amp; venue to be confirmed by the organisers.</span></p>
+    </div>
+    <div class="count" id="count">
+      <div><b>--</b><small>Days</small></div><div><b>--</b><small>Hrs</small></div><div><b>--</b><small>Min</small></div><div><b>--</b><small>Sec</small></div>
+    </div>
+  </div>
+
+  <div class="ribbon"><span><i class="dot"></i><span class="lx-ta">விரைவு இணைப்புகள்</span><span class="lx-en">Explore</span></span></div>
+  <div class="grid g4">
+    {h.quickLinks.map((q) => (
+      <a class="card quick" href={q.href}>
+        <div class="ic">{q.icon}</div>
+        <h3><span class="lx-ta ta">{q.title.ta}</span><span class="lx-en">{q.title.en}</span></h3>
+        <p><span class="lx-ta ta">{q.desc.ta}</span><span class="lx-en">{q.desc.en}</span></p>
+      </a>
+    ))}
+  </div>
+
+  <div class="ribbon"><span><i class="dot"></i><span class="lx-ta">சமீபத்திய செய்திகள்</span><span class="lx-en">Latest news</span></span></div>
+  <div class="grid g3">
+    {c.news.map((n) => (
+      <div class="card">
+        <div class="meta">{fmtDate(n.date)} · <span class="chip">{n.category}</span></div>
+        <h3 style="margin-top:8px"><span class="lx-ta ta">{n.title.ta}</span><span class="lx-en">{n.title.en}</span></h3>
+        <p><span class="lx-ta ta">{n.body.ta}</span><span class="lx-en">{n.body.en}</span></p>
+      </div>
+    ))}
+  </div>
+
+  <script>
+    const target = new Date();
+    target.setDate(target.getDate() + 64);
+    target.setHours(17, 0, 0, 0);
+    const box = document.getElementById('count');
+    function tick() {
+      if (!box) return;
+      const s = Math.max(0, Math.floor((target.getTime() - Date.now()) / 1000));
+      const b = box.querySelectorAll('b');
+      b[0].textContent = String(Math.floor(s / 86400));
+      b[1].textContent = String(Math.floor((s % 86400) / 3600));
+      b[2].textContent = String(Math.floor((s % 3600) / 60));
+      b[3].textContent = String(s % 60);
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</Base>

@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+const e = c.event;
+---
+<Base title="Event Details — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">நிகழ்வு</span><span class="lx-en">Event</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">நிகழ்வு விபரங்கள்</span><span class="lx-en">Event Details</span></h2>
+  </div>
+
+  {e ? (
+    <div class="split mt2" style="align-items:start">
+      <div>
+        <h3 style="font-family:'Catamaran';color:var(--maroon);font-size:1.5rem">
+          <span class="lx-ta ta">{e.name.ta}</span><span class="lx-en">{e.name.en}</span>
+        </h3>
+        {e.dateText && (
+          <div class="contact-line"><div class="ic">📅</div><div>{e.dateText}</div></div>
+        )}
+        {(e.venue.ta || e.venue.en) && (
+          <div class="contact-line"><div class="ic">📍</div><div><span class="lx-ta ta">{e.venue.ta}</span><span class="lx-en">{e.venue.en}</span></div></div>
+        )}
+        {(e.description.ta || e.description.en) && (
+          <p class="lede mt"><span class="lx-ta ta">{e.description.ta}</span><span class="lx-en">{e.description.en}</span></p>
+        )}
+        <div class="cta-row">
+          <a class="btn solid" href="/programme" style="color:var(--maroon-deep)"><span class="lx-ta">நிகழ்ச்சி நிரல்</span><span class="lx-en">Programme</span></a>
+          <a class="btn ghost" href="/participation" style="color:var(--maroon);border-color:var(--gold)"><span class="lx-ta">பங்கேற்பு</span><span class="lx-en">Participate</span></a>
+        </div>
+      </div>
+      {e.poster && <img src={e.poster} alt="" style="border-radius:12px;border:1px solid var(--line-gold)" />}
+    </div>
+  ) : (
+    <p class="lede mt2"><span class="lx-ta ta">நிகழ்வு விபரங்கள் விரைவில் அறிவிக்கப்படும்.</span><span class="lx-en">Event details will be announced soon.</span></p>
+  )}
+</Base>

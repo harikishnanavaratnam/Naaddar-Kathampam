@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+---
+<Base title="Programme — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">நிரல்</span><span class="lx-en">Programme</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">நிகழ்ச்சி நிரல்</span><span class="lx-en">Programme</span></h2>
+  </div>
+  <p class="lede mt"><span class="lx-ta ta">நிகழ்ச்சி அட்டவணை — நிர்வாகம் ஒவ்வொரு வரிசையையும் சேர்க்க/வரிசைப்படுத்த முடியும்.</span><span class="lx-en">Schedule — admins can add, reorder and remove each row.</span></p>
+  <div class="tblwrap mt">
+    <table>
+      <thead>
+        <tr>
+          <th><span class="lx-ta">நேரம்</span><span class="lx-en">Time</span></th>
+          <th><span class="lx-ta">நிகழ்ச்சி</span><span class="lx-en">Item</span></th>
+          <th><span class="lx-ta">கலைஞர்</span><span class="lx-en">Performer</span></th>
+          <th><span class="lx-ta">மேடை</span><span class="lx-en">Stage</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {c.programme.map((r) => (
+          <tr>
+            <td class="time">{r.time}</td>
+            <td><span class="lx-ta ta">{r.item.ta}</span><span class="lx-en">{r.item.en}</span></td>
+            <td>{r.performer.ta || r.performer.en ? (<><span class="lx-ta ta">{r.performer.ta}</span><span class="lx-en">{r.performer.en}</span></>) : '—'}</td>
+            <td>{r.stage}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {c.event?.pdf && (
+    <p class="mt"><a class="btn ghost" style="color:var(--maroon);border-color:var(--gold)" href={c.event.pdf} target="_blank" rel="noopener"><span class="lx-ta">⬇ நிரலை PDF ஆகப் பதிவிறக்கு</span><span class="lx-en">⬇ Download programme (PDF)</span></a></p>
+  )}
+</Base>

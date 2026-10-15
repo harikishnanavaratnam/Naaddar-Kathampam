@@ -1,0 +1,31 @@
+---
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+const s = c.site;
+---
+<footer>
+  <div class="foot">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <img src="/logo.webp" alt="" />
+        <b style="font-family:'Catamaran';font-size:1.05rem;color:#fff">நாட்டார் கதம்பம்</b>
+      </div>
+      <p class="tagline lx-ta ta">{s.tagline.ta}</p>
+      <p class="tagline lx-en">{s.tagline.en}</p>
+    </div>
+    <div>
+      <h4><span class="lx-ta">வழிசெலுத்தல்</span><span class="lx-en">Navigate</span></h4>
+      <a href="/">முகப்பு / Home</a>
+      <a href="/about">பற்றி / About</a>
+      <a href="/programme">நிரல் / Programme</a>
+      <a href="/gallery">படங்கள் / Gallery</a>
+    </div>
+    <div>
+      <h4><span class="lx-ta">தொடர்பு</span><span class="lx-en">Connect</span></h4>
+      {s.phone && <a href={`tel:${s.phone}`}>✆ {s.phone}</a>}
+      {s.youtube && <a href={s.youtube} target="_blank" rel="noopener">▶ YouTube</a>}
+      {s.facebook && <a href={s.facebook} target="_blank" rel="noopener">f Facebook</a>}
+    </div>
+  </div>
+  <div class="copyright">© 2026 Naaddaar Kathampam · நாட்டார் கதம்பம் · <span class="lx-ta">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை</span><span class="lx-en">All rights reserved</span></div>
+</footer>

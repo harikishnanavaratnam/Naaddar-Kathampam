@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+---
+<Base title="Sponsors — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">அனுசரணை</span><span class="lx-en">Sponsors</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">அனுசரணையாளர்கள்</span><span class="lx-en">Sponsors</span></h2>
+  </div>
+  {c.sponsorTiers.map((tier) => (
+    <>
+      <div class="sptier"><span class="lx-ta ta">{tier.name.ta}</span><span class="lx-en">{tier.name.en}</span></div>
+      <div class="grid g4">
+        {c.sponsors.filter((s) => s.tier === tier.key).map((s) => (
+          <div class="splogo">{s.logo ? <img src={s.logo} alt={s.name} style="max-height:60px;max-width:80%;object-fit:contain" /> : <img class="imgph" src="/logo.webp" alt={s.name} style="max-height:46px;max-width:70%" />}</div>
+        ))}
+      </div>
+    </>
+  ))}
+  <p class="mt2"><a class="btn solid" href="/contact" style="color:var(--maroon-deep)"><span class="lx-ta">அனுசரணை வழங்க விரும்புகிறீர்களா?</span><span class="lx-en">Become a sponsor</span></a></p>
+</Base>

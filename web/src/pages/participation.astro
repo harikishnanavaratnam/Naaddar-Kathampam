@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+const p = c.participation;
+---
+<Base title="Participation & Registration — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">பங்கேற்பு</span><span class="lx-en">Participation</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">பங்கேற்பு & பதிவு</span><span class="lx-en">Participation &amp; Registration</span></h2>
+  </div>
+  <div class="grid g3 mt2">
+    {p.cards.map((card) => (
+      <div class="card">
+        <h3><span class="lx-ta ta">{card.title.ta}</span><span class="lx-en">{card.title.en}</span></h3>
+        <p><span class="lx-ta ta">{card.body.ta}</span><span class="lx-en">{card.body.en}</span></p>
+      </div>
+    ))}
+  </div>
+</Base>

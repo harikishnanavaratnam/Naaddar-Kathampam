@@ -1,0 +1,64 @@
+---
+import { NAV } from '../lib/nav';
+const path = Astro.url.pathname;
+const active = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const primary = NAV.filter((n) => n.primary);
+const more = NAV.filter((n) => !n.primary);
+---
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="/">
+      <img src="/logo.webp" alt="Naaddaar Kathampam" width="54" height="54" />
+      <span class="brand-name">நாட்டார் கதம்பம்<small>Naaddaar Kathampam</small></span>
+    </a>
+    <button class="navtoggle" id="navToggle" aria-label="Menu">☰</button>
+    <nav class="mainnav" id="nav">
+      {primary.map((n) => (
+        <a href={n.href} aria-current={active(n.href) ? 'page' : undefined}>
+          <span class="navlab-ta">{n.ta}</span><span class="navlab-en">{n.en}</span>
+        </a>
+      ))}
+      <div class="morewrap" id="moreWrap">
+        <button class="morebtn" id="moreBtn"><span class="navlab-ta">மேலும் ▾</span><span class="navlab-en">More ▾</span></button>
+        <div class="dropdown">
+          {more.map((n) => (
+            <a href={n.href} aria-current={active(n.href) ? 'page' : undefined}>
+              <span class="navlab-ta">{n.ta}</span><span class="navlab-en">{n.en}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-l="ta">அ</button>
+      <button type="button" data-l="both" aria-pressed="true">அ/A</button>
+      <button type="button" data-l="en">A</button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const setLang = (l: string) => {
+    document.body.dataset.lang = l;
+    document.querySelectorAll<HTMLButtonElement>('.lang button').forEach((b) =>
+      b.setAttribute('aria-pressed', b.dataset.l === l ? 'true' : 'false')
+    );
+    try { localStorage.setItem('nk-lang', l); } catch (e) {}
+  };
+  let saved = 'both';
+  try { saved = localStorage.getItem('nk-lang') || 'both'; } catch (e) {}
+  document.querySelectorAll<HTMLButtonElement>('.lang button').forEach((b) =>
+    b.addEventListener('click', () => setLang(b.dataset.l as string))
+  );
+  setLang(saved);
+
+  document.getElementById('navToggle')?.addEventListener('click', () =>
+    document.getElementById('nav')?.classList.toggle('open')
+  );
+  const mw = document.getElementById('moreWrap');
+  document.getElementById('moreBtn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mw?.classList.toggle('open');
+  });
+  document.addEventListener('click', () => mw?.classList.remove('open'));
+</script>

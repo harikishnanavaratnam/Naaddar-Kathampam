@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getContent } from '../../lib/getContent';
+import { fmtDate } from '../../lib/format';
+import type { NewsPost } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const c = await getContent();
+  return c.news.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: NewsPost };
+---
+<Base title={`${post.title.en} — Naaddaar Kathampam`}>
+  <div class="mt">
+    <div class="meta">{fmtDate(post.date)} · <span class="chip">{post.category}</span></div>
+    <h2 class="ptitle" style="margin-top:8px"><span class="lx-ta ta">{post.title.ta}</span><span class="lx-en">{post.title.en}</span></h2>
+  </div>
+  <div class="lede mt">
+    <p><span class="lx-ta ta">{post.body.ta}</span><span class="lx-en">{post.body.en}</span></p>
+  </div>
+  <p class="mt2"><a class="btn ghost" style="color:var(--maroon);border-color:var(--gold)" href="/news"><span class="lx-ta">← செய்திகளுக்கு</span><span class="lx-en">← Back to news</span></a></p>
+</Base>

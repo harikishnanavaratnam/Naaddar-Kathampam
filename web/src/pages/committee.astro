@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+---
+<Base title="Organising Committee — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">குழு</span><span class="lx-en">Committee</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">ஏற்பாட்டுக் குழு</span><span class="lx-en">Organising Committee</span></h2>
+  </div>
+  <div class="grid g4 mt2">
+    {c.committee.map((m) => (
+      <div class="card person">
+        <div class="avatar">{m.photo ? <img src={m.photo} alt={m.name.en} /> : <img class="imgph" src="/logo.webp" alt="" />}</div>
+        <h3 style="justify-self:center;font-size:.98rem"><span class="lx-ta ta">{m.name.ta}</span><span class="lx-en">{m.name.en}</span></h3>
+        <div class="role">{m.role}</div>
+      </div>
+    ))}
+  </div>
+</Base>

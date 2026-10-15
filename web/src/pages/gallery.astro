@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+---
+<Base title="Gallery — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">தொகுப்பு</span><span class="lx-en">Gallery</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">புகைப்படங்கள் & காணொளிகள்</span><span class="lx-en">Gallery</span></h2>
+  </div>
+  <div class="galgrid mt2">
+    {c.gallery.map((g) => (
+      <div class={`tile${g.video ? ' v' : ''}`} style={`background:${g.grad ?? 'linear-gradient(135deg,#8B1A1A,#C99700)'}`}>
+        {g.image
+          ? <img src={g.image} alt={g.label.en} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+          : <img class="imgph" src="/logo.webp" alt="" style="position:absolute;inset:0;margin:auto;width:46%;height:46%" />}
+        <span class="lx-ta ta" style="position:relative;z-index:1">{g.label.ta}</span><span class="lx-en" style="position:relative;z-index:1">{g.label.en}</span>
+      </div>
+    ))}
+  </div>
+</Base>

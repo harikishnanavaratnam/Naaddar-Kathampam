@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+const a = c.about;
+---
+<Base title="About — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">எங்களைப் பற்றி</span><span class="lx-en">About</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">நாட்டார் கதம்பம் பற்றி</span><span class="lx-en">About Naaddaar Kathampam</span></h2>
+  </div>
+  <p class="lede mt"><span class="lx-ta ta">{a.intro.ta}</span><span class="lx-en">{a.intro.en}</span></p>
+
+  <div class="ribbon"><span><i class="dot"></i><span class="lx-ta">வரலாறு</span><span class="lx-en">Our history</span></span></div>
+  <div class="split">
+    <div class="timeline">
+      {a.timeline.map((t) => (
+        <div class="tl-item">
+          <div class="tl-year">{t.year}</div>
+          <p><span class="lx-ta ta">{t.text.ta}</span><span class="lx-en">{t.text.en}</span></p>
+        </div>
+      ))}
+    </div>
+    <div class="card person">
+      <div class="avatar">{a.founder.photo ? <img src={a.founder.photo} alt={a.founder.name.en} /> : <img class="imgph" src="/logo.webp" alt="" />}</div>
+      <h3 style="justify-self:center"><span class="lx-ta ta">{a.founder.name.ta}</span><span class="lx-en">{a.founder.name.en}</span></h3>
+      <div class="role" style="margin-top:6px">{a.founder.role}</div>
+      <p><span class="lx-ta ta">{a.founder.bio.ta}</span><span class="lx-en">{a.founder.bio.en}</span></p>
+    </div>
+  </div>
+</Base>

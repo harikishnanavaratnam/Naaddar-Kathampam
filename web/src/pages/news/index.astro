@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getContent } from '../../lib/getContent';
+import { fmtDate } from '../../lib/format';
+const c = await getContent();
+---
+<Base title="News & Updates — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">செய்திகள்</span><span class="lx-en">News</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">செய்திகள் & புதுப்பிப்புகள்</span><span class="lx-en">News &amp; Updates</span></h2>
+  </div>
+  <div class="stack mt2">
+    {c.news.map((n) => (
+      <a class="card post" href={`/news/${n.slug}`} style="text-decoration:none;color:inherit">
+        <div class="thumb">{n.image ? <img src={n.image} alt="" style="width:100%;height:100%;object-fit:cover;border-radius:10px" /> : <img class="imgph" src="/logo.webp" alt="" style="width:72%;height:72%" />}</div>
+        <div>
+          <div class="meta">{fmtDate(n.date)} · <span class="chip">{n.category}</span></div>
+          <h3 style="margin:6px 0"><span class="lx-ta ta">{n.title.ta}</span><span class="lx-en">{n.title.en}</span></h3>
+          <p><span class="lx-ta ta">{n.body.ta}</span><span class="lx-en">{n.body.en}</span></p>
+        </div>
+      </a>
+    ))}
+  </div>
+</Base>

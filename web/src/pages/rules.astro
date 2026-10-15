@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+---
+<Base title="Rules & Guidelines — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">விதிமுறைகள்</span><span class="lx-en">Guidelines</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">விதிமுறைகள்</span><span class="lx-en">Rules &amp; Guidelines</span></h2>
+  </div>
+  <div class="stack mt2">
+    {c.rules.map((r) => (
+      <div class="card">
+        <h3><span class="lx-ta ta">{r.title.ta}</span><span class="lx-en">{r.title.en}</span></h3>
+        <p><span class="lx-ta ta">{r.body.ta}</span><span class="lx-en">{r.body.en}</span></p>
+      </div>
+    ))}
+  </div>
+</Base>

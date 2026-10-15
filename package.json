@@ -1,0 +1,13 @@
+{
+  "name": "naaddaar-kathampam",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Naaddaar Kathampam website — Astro (web) + Sanity (studio) monorepo.",
+  "workspaces": ["web", "studio"],
+  "scripts": {
+    "dev": "npm --workspace web run dev",
+    "build": "npm --workspace web run build",
+    "preview": "npm --workspace web run preview",
+    "studio": "npm --workspace studio run dev"
+  }
+}

@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/getContent';
+const c = await getContent();
+const s = c.site;
+const web3key = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
+---
+<Base title="Contact — Naaddaar Kathampam">
+  <div class="mt">
+    <span class="eyebrow"><span class="lx-ta">தொடர்பு</span><span class="lx-en">Contact</span></span>
+    <h2 class="ptitle"><span class="lx-ta ta">தொடர்புக்கு</span><span class="lx-en">Contact Us</span></h2>
+  </div>
+  <div class="split mt2">
+    <div>
+      <div class="contact-line"><div class="ic">✆</div><div><b><span class="lx-ta">தொலைபேசி</span><span class="lx-en">Phone</span></b><br /><a href={`tel:${s.phone}`}>{s.phone}</a></div></div>
+      <div class="contact-line"><div class="ic">▶</div><div><b>YouTube</b><br /><a href={s.youtube} target="_blank" rel="noopener">@naaddaarkathampam5279</a></div></div>
+      <div class="contact-line"><div class="ic">f</div><div><b>Facebook</b><br /><a href={s.facebook} target="_blank" rel="noopener">Naaddaar Kathampam</a></div></div>
+      <div class="mapph"><span class="lx-ta ta">🗺 வரைபடம் — இருப்பிடம் உறுதிப்படுத்தப்படும்</span><span class="lx-en">🗺 Map — location to be confirmed</span></div>
+    </div>
+    <form class="card" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value={web3key} />
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+      <h3 style="margin-bottom:14px"><span class="lx-ta ta">எமக்கு எழுதுங்கள்</span><span class="lx-en">Send a message</span></h3>
+      <label class="field"><span><span class="lx-ta">பெயர்</span><span class="lx-en">Name</span></span><input type="text" name="name" required /></label>
+      <label class="field"><span><span class="lx-ta">மின்னஞ்சல்</span><span class="lx-en">Email</span></span><input type="email" name="email" required /></label>
+      <label class="field"><span><span class="lx-ta">செய்தி</span><span class="lx-en">Message</span></span><textarea name="message" rows="4" required></textarea></label>
+      <button class="btn solid" type="submit" style="width:100%;justify-content:center;color:var(--maroon-deep)"><span class="lx-ta">அனுப்பு</span><span class="lx-en">Send</span></button>
+      {!web3key && <p class="note mt" style="color:var(--maroon)"><span class="lx-ta">⚠ PUBLIC_WEB3FORMS_KEY அமைக்கவும்.</span><span class="lx-en">⚠ Set PUBLIC_WEB3FORMS_KEY to enable the form.</span></p>}
+    </form>
+  </div>
+</Base>

@@ -1,0 +1,10 @@
+---
+// Bilingual text: renders Tamil (first) + English; the client toggle shows/hides.
+interface Props { ta: string; en: string; tag?: string; class?: string }
+const { ta, en, tag = 'span', class: cls = '' } = Astro.props;
+const Tag = tag as any;
+---
+<Tag class={cls}>
+  {ta && <span class="lx-ta ta">{ta}</span>}
+  {en && <span class="lx-en">{en}</span>}
+</Tag>
